@@ -1,13 +1,16 @@
 package com.example.myapplication;
 
-public class Producto {
+public class Producto implements Cloneable{
 	
 	private String nombre;
 	private int stock;
+	//private double precio;
 	
 	
 	public Producto(String nombre) {
 		this.nombre=nombre;
+		//this.precio=precio;
+		this.stock=0;
 	}
 	
 	public void addStock(int numero) {
@@ -33,6 +36,9 @@ public class Producto {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+	 public String mostrar() {
+		 return this.nombre+ "  "+"--------"+"Unidades : "+this.stock;
+	 }
 	
 	
 
