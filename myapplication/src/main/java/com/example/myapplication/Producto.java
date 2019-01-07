@@ -4,15 +4,23 @@ public class Producto implements Cloneable{
 	
 	private String nombre;
 	private int stock;
-	//private double precio;
+	private double precio;
 	
 	
-	public Producto(String nombre) {
+	public Producto(String nombre,double precio) {
 		this.nombre=nombre;
-		//this.precio=precio;
+		this.precio=precio;
 		this.stock=0;
 	}
 	
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
 	public void addStock(int numero) {
 		this.stock=this.stock+numero;
 	}
