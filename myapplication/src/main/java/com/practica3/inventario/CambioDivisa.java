@@ -13,6 +13,16 @@ public class CambioDivisa {
 	}
 	
 	
+	public double getDivisaConstante() {
+		return divisaConstante;
+	}
+
+
+	public void setDivisaConstante(double divisaConstante) {
+		this.divisaConstante = divisaConstante;
+	}
+
+
 	public ArrayList<Producto> cambioPrecioDolares(ArrayList<Producto> a){
 		
 		ArrayList<Producto> cambioPrecio=new ArrayList<Producto>();
