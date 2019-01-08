@@ -21,7 +21,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
  * (or tab) or some part of an HTML page where a Vaadin application is embedded.
@@ -45,21 +44,15 @@ public class MyUI extends UI {
         inv.addProducto(b);
         inv.addProducto(c);
         final VerticalLayout layout = new VerticalLayout();
-        //final HorizontalLayout layoutHorizontal = new HorizontalLayout();
         final GridLayout gridLayout = new GridLayout(5, 15);
         gridLayout.setSpacing(true);
    
-        //layout.addComponent(new Label("PRACTICA 3 - INVENTARIO"));
         gridLayout.addComponent(new Label("PRACTICA 3 - INVENTARIO"),0,1);
-        gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan Martin y Angel rey"),0,2);
+        gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan Martin y Angel Rey"),0,2);
         gridLayout.addComponent(new Label(""),0,3);
-        //layout.addComponent(new Label("Bienvenidos al inventario de Ivan y Angdhel"));
-        //layout.addComponent(new Label(" "));
         
         final TextField crear = new TextField();
         crear.setValue("nombre");
-        
-
         //crear.setCaption("Nombre del producto");
         gridLayout.addComponent(crear,0,4);
         
@@ -80,11 +73,8 @@ public class MyUI extends UI {
             	notif.setPosition(Position.BOTTOM_RIGHT);
             	notif.setStyleName("mystyle");
             	
-
             	// Show it in the page
             	notif.show(Page.getCurrent());
-            //layout.addComponent(new Label("Producto creado " + crear.getValue()));
-            //System.out.println(crear.getValue());
             crear.setValue("");
             precio.setValue("");
         });
@@ -109,8 +99,7 @@ public class MyUI extends UI {
                 	notif.setDelayMsec(2000);
                 	notif.setPosition(Position.BOTTOM_RIGHT);
                 	notif.setStyleName("mystyle");
-                	
-
+               	
                 	// Show it in the page
                 	notif.show(Page.getCurrent());
         		borrar.setValue("");
@@ -163,12 +152,8 @@ public class MyUI extends UI {
     
         gridd.setEnabled(true);
         //////////////////////////
+ 
         
-        
-      
-        
-        
-       
         //////////////////////////
         Button listaProductos = new Button("Actualizar productos");
         listaProductos.addClickListener(e -> {
@@ -207,15 +192,10 @@ public class MyUI extends UI {
                 	notif.setDelayMsec(500);
                 	notif.setPosition(Position.BOTTOM_RIGHT);
                 	notif.setStyleName("mystyle");
-                	
-
                 	// Show it in the page
                 	notif.show(Page.getCurrent());
-        	}
-        	
-        	        	
+        	}	        	
             gridd.getDataProvider().refreshAll();
-        	        	
         });
         gridLayout.addComponent(cambioDivisa,3,9);
 
@@ -249,18 +229,14 @@ public class MyUI extends UI {
             	// Customize it
             	notif.setDelayMsec(20000);
             	notif.setPosition(Position.BOTTOM_RIGHT);
-            	notif.setStyleName("mystyle");
-            
+            	notif.setStyleName("mystyle");            
             	// Show it in the page
             	notif.show(Page.getCurrent());
-            //layout.addComponent(new Label("Producto creado " + crear.getValue()));
-            //System.out.println(crear.getValue());
             nombrePro.setValue("");
             unidades.setValue("");
         });
         gridLayout.addComponent(add,2,9);
                
-        
         final TextField nombreProd = new TextField();
         nombreProd.setValue("nombre");
         //crear.setCaption("Nombre del producto");
@@ -321,12 +297,9 @@ public class MyUI extends UI {
             	// Show it in the page
             	notif.show(Page.getCurrent());
                 gastos.setValue("");
-
             
         });
         gridLayout.addComponent(gastar,1,11);
-
-        
 
         Button del = new Button("Eliminar Stocks");
         del.addClickListener(e -> {
@@ -336,7 +309,6 @@ public class MyUI extends UI {
             		inv.addBeneficio(p.getPrecio()*Double.parseDouble(unidadess.getValue()));
             	}
             }
-            
         	
             Notification notif = new Notification(
             	    "Stock Eliminado",
@@ -349,8 +321,6 @@ public class MyUI extends UI {
             	
             	// Show it in the page
             	notif.show(Page.getCurrent());
-            //layout.addComponent(new Label("Producto creado " + crear.getValue()));
-            //System.out.println(crear.getValue());
             nombreProd.setValue("");
             unidadess.setValue("");
         });
@@ -370,14 +340,9 @@ public class MyUI extends UI {
             	notif.setStyleName("mystyle");
             
             	// Show it in the page
-            	notif.show(Page.getCurrent());
-                //nombreProd.setValue("");
-
-            
+            	notif.show(Page.getCurrent());            
         });
         gridLayout.addComponent(ver,3,4);
-
-          
        setContent(gridLayout);
     }
 
