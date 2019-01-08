@@ -5,6 +5,20 @@ import java.util.ArrayList;
 public class Inventario {
 	
 	private ArrayList<Producto>productos;
+	private ArrayList<Transaccion>transaciones;
+	public ArrayList<Transaccion> getTransaciones() {
+		return transaciones;
+	}
+	public void setTransaciones(ArrayList<Transaccion> transaciones) {
+		this.transaciones = transaciones;
+	}
+	public int getStockTotal() {
+		return stockTotal;
+	}
+	public void setStockTotal(int stockTotal) {
+		this.stockTotal = stockTotal;
+	}
+
 	private int stockTotal;
 	private double beneficio;
 	
