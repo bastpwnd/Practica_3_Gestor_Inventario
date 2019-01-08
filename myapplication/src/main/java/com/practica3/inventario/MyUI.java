@@ -53,7 +53,7 @@ public class MyUI extends UI {
         gridLayout.addComponent(new Label("PRACTICA 3 - INVENTARIO"),0,1);
         gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan Martin y Angel rey"),0,2);
         gridLayout.addComponent(new Label(""),0,3);
-        //layout.addComponent(new Label("Bienvenidos al inventario de Ivan y Angel"));
+        //layout.addComponent(new Label("Bienvenidos al inventario de Ivan y Angdhel"));
         //layout.addComponent(new Label(" "));
         
         final TextField crear = new TextField();
