@@ -1,14 +1,11 @@
-package com.example.myapplication;
+package com.practica3.inventario;
 
 
 import javax.servlet.annotation.WebServlet;
 
-//import com.example.Grid;
-//import com.example.GridLayout;
-//import com.example.HorizontalLayout;
-import com.example.myapplication.Inventario;
-import com.example.myapplication.MyUI;
-import com.example.myapplication.Producto;
+import com.practica3.inventario.Inventario;
+import com.practica3.inventario.MyUI;
+import com.practica3.inventario.Producto;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.Page;

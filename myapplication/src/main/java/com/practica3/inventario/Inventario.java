@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.practica3.inventario;
 
 import java.util.ArrayList;
 

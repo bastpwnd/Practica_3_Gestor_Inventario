@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.practica3.inventario;
 
 public class Producto implements Cloneable{
 	
