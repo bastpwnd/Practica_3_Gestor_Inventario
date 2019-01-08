@@ -63,19 +63,16 @@ public class MyUI extends UI {
         gridd.addColumn(Producto::getPrecio).setCaption("Precio por Unidad");
         gridd.setEnabled(true);
         
-        gridLayout.addComponent(new Label("PRACTICA 3 - INVENTARIO"),0,1);
-        gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan Martin y Angel Rey"),0,2);
-        gridLayout.addComponent(new Label(""),0,3);
         
         final TextField crear = new TextField();
         crear.setValue("nombre");
         //crear.setCaption("Nombre del producto");
-        gridLayout.addComponent(crear,0,4);
+        
         
         final TextField precio = new TextField();
         precio.setValue("precio");
         //precio.setCaption("Precio del producto");
-        gridLayout.addComponent(precio,1,4);
+        
         
         Button crearButton = new Button("Crear Producto");
         crearButton.addClickListener(e -> {
@@ -96,15 +93,15 @@ public class MyUI extends UI {
             gridd.getDataProvider().refreshAll();
             
         });
-        gridLayout.addComponent(crearButton,2,4);
         
-        gridLayout.addComponent(new Label(" "),0,5);
+        
+        
         
         
         final TextField borrar = new TextField();
         //borrar.setCaption("Nombre del producto a Borrar");
         borrar.setValue("nombre");
-        gridLayout.addComponent(borrar,0,6);
+        
         Button buttonBorrar = new Button("Borrar Producto");
         buttonBorrar.addClickListener(e -> {
         	if(inv.removeProducto(borrar.getValue())) {
@@ -140,7 +137,7 @@ public class MyUI extends UI {
         	}
             
         });
-        gridLayout.addComponent(buttonBorrar,2,6);
+        
         
         Button numeroProductos = new Button("Numero productos");
         numeroProductos.addClickListener(e -> {
@@ -160,7 +157,7 @@ public class MyUI extends UI {
             	notif.show(Page.getCurrent());
         	
         });
-        gridLayout.addComponent(numeroProductos,3,8);
+        
         
         
         //////////////////////////
@@ -170,7 +167,7 @@ public class MyUI extends UI {
         tablaTransaccion.addColumn(Transaccion::getComentario).setCaption("Comentario Transaccion");
         tablaTransaccion.addColumn(Transaccion::getFechaTransaccion).setCaption("Fecha");
         tablaTransaccion.setEnabled(true);
-        gridLayout.addComponent(tablaTransaccion,3,20);
+        
  
         
         //////////////////////////
@@ -217,21 +214,17 @@ public class MyUI extends UI {
         	}	        	
             gridd.getDataProvider().refreshAll();
         });
-        gridLayout.addComponent(cambioDivisa,3,9);
-
-        gridLayout.addComponent(listaProductos,3,6);
         
-        gridLayout.addComponent(gridd,3,12);
 
         final TextField nombrePro = new TextField();
         nombrePro.setValue("nombre");
         //crear.setCaption("Nombre del producto");
-        gridLayout.addComponent(nombrePro,0,9);
+        
         
         final TextField unidades = new TextField();
         unidades.setValue("unidades");
         //precio.setCaption("Precio del producto");
-        gridLayout.addComponent(unidades,1,9);
+        
 
         Button add = new Button("Añadir Stocks");
         add.addClickListener(e -> {
@@ -260,27 +253,27 @@ public class MyUI extends UI {
             nombrePro.setValue("");
             unidades.setValue("");
         });
-        gridLayout.addComponent(add,2,9);
+        
                
         final TextField nombreProd = new TextField();
         nombreProd.setValue("nombre");
         //crear.setCaption("Nombre del producto");
-        gridLayout.addComponent(nombreProd,0,8);
+        
         
         final TextField unidadess = new TextField();
         unidadess.setValue("unidades");
         //precio.setCaption("Precio del producto");
-        gridLayout.addComponent(unidadess,1,8);
+        
         
         final TextField ingresos = new TextField();
         ingresos.setValue("cantidad");
         //precio.setCaption("Precio del producto");
-        gridLayout.addComponent(ingresos,0,10);
+        
         
         final TextField gastos = new TextField();
         gastos.setValue("cantidad");
         //precio.setCaption("Precio del producto");
-        gridLayout.addComponent(gastos,1,10);
+        
         
         Button ingresar = new Button("Ingresar");
         ingresar.addClickListener(e -> {
@@ -307,7 +300,7 @@ public class MyUI extends UI {
 
             
         });
-        gridLayout.addComponent(ingresar,0,11);
+        
         Button gastar = new Button("Gastos");
         gastar.addClickListener(e -> {
         	
@@ -331,7 +324,7 @@ public class MyUI extends UI {
                 gastos.setValue("");
             
         });
-        gridLayout.addComponent(gastar,1,11);
+        
 
         Button del = new Button("Eliminar Stocks");
         del.addClickListener(e -> {
@@ -361,7 +354,7 @@ public class MyUI extends UI {
             nombreProd.setValue("");
             unidadess.setValue("");
         });
-        gridLayout.addComponent(del,2,8);
+        
                
         Button ver = new Button("Beneficios");
         ver.addClickListener(e -> {
@@ -379,7 +372,34 @@ public class MyUI extends UI {
             	// Show it in the page
             	notif.show(Page.getCurrent());            
         });
-        gridLayout.addComponent(ver,3,4);
+        
+        /*AÑADIMOS LOS  COMPONENTES */
+        
+       gridLayout.addComponent(new Label("PRACTICA 3 - INVENTARIO"),0,1);
+       gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan Martin y Angel Rey"),0,2);
+       gridLayout.addComponent(new Label(""),0,3);
+       gridLayout.addComponent(crear,0,4);
+       gridLayout.addComponent(precio,1,4);
+       gridLayout.addComponent(crearButton,2,4);
+       gridLayout.addComponent(new Label(" "),0,5);
+       gridLayout.addComponent(borrar,0,6);
+       gridLayout.addComponent(buttonBorrar,2,6);
+       gridLayout.addComponent(numeroProductos,3,8);
+       gridLayout.addComponent(tablaTransaccion,3,20);
+       gridLayout.addComponent(cambioDivisa,3,9);
+       gridLayout.addComponent(listaProductos,3,6);
+       gridLayout.addComponent(gridd,3,12);
+       gridLayout.addComponent(nombrePro,0,9);
+       gridLayout.addComponent(unidades,1,9);
+       gridLayout.addComponent(add,2,9);
+       gridLayout.addComponent(nombreProd,0,8);
+       gridLayout.addComponent(unidadess,1,8);
+       gridLayout.addComponent(ingresos,0,10);
+       gridLayout.addComponent(gastos,1,10);
+       gridLayout.addComponent(ingresar,0,11);
+       gridLayout.addComponent(gastar,1,11);
+       gridLayout.addComponent(ver,3,4);
+       gridLayout.addComponent(del,2,8);
        setContent(gridLayout);
     }
 

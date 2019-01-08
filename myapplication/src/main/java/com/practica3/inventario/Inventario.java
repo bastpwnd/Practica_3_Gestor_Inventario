@@ -6,22 +6,8 @@ public class Inventario {
 	
 	private ArrayList<Producto>productos;
 	private ArrayList<Transaccion>transaciones;
-	public ArrayList<Transaccion> getTransaciones() {
-		return transaciones;
-	}
-	public void setTransaciones(ArrayList<Transaccion> transaciones) {
-		this.transaciones = transaciones;
-	}
-	public int getStockTotal() {
-		return stockTotal;
-	}
-	public void setStockTotal(int stockTotal) {
-		this.stockTotal = stockTotal;
-	}
-
 	private int stockTotal;
 	private double beneficio;
-	
 	
 	public Inventario() {
 		this.productos=new ArrayList<Producto>();
@@ -72,6 +58,18 @@ public class Inventario {
 		for(Producto p: productos) {
 			this.stockTotal=this.stockTotal+p.getStock();
 		}
+	}
+	public ArrayList<Transaccion> getTransaciones() {
+		return transaciones;
+	}
+	public void setTransaciones(ArrayList<Transaccion> transaciones) {
+		this.transaciones = transaciones;
+	}
+	public int getStockTotal() {
+		return stockTotal;
+	}
+	public void setStockTotal(int stockTotal) {
+		this.stockTotal = stockTotal;
 	}
 
 }
