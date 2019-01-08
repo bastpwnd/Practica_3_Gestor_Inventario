@@ -25,11 +25,15 @@ public class Inventario {
 	
 	public Inventario() {
 		this.productos=new ArrayList<Producto>();
+		this.transaciones=new ArrayList<Transaccion>();
 		this.beneficio=500.0;
 		
 	}
 	public void addBeneficio(double a) {
 		this.beneficio=this.beneficio+a;;
+	}
+	public void addTransaccion(Transaccion a) {
+		this.transaciones.add(a);
 	}
 	public void delBeneficio(double a) {
 		this.beneficio=this.beneficio-a;

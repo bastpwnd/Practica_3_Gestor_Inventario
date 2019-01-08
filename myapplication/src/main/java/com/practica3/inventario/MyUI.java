@@ -1,11 +1,14 @@
 package com.practica3.inventario;
 
 
+import java.util.Calendar;
+
 import javax.servlet.annotation.WebServlet;
 
 import com.practica3.inventario.Inventario;
 import com.practica3.inventario.MyUI;
 import com.practica3.inventario.Producto;
+import com.practica3.inventario.Transaccion;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.Page;
@@ -37,16 +40,29 @@ public class MyUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
     	
     	Inventario inv=new Inventario();
+    	/*datos por defecto aplicacion*/
+    	Calendar ca = Calendar.getInstance();
         Producto a=new Producto("Play Station 4",245.5);
         Producto b=new Producto("Ordenador",1234.50);
         Producto c=new Producto("Silla",34.5);
+        Transaccion t=new Transaccion("Transaccion por defecto",ca.getTime());
+        inv.addTransaccion(t);		
+        		
+     
         inv.addProducto(a);
         inv.addProducto(b);
         inv.addProducto(c);
         final VerticalLayout layout = new VerticalLayout();
-        final GridLayout gridLayout = new GridLayout(5, 15);
+        final GridLayout gridLayout = new GridLayout(5, 25);
         gridLayout.setSpacing(true);
-   
+        
+        Grid<Producto> gridd = new Grid<>("Listado de productos");
+    	gridd.setItems(inv.getProductos());
+        gridd.addColumn(Producto::getNombre).setCaption("Nombre Producto");
+        gridd.addColumn(Producto::getStock).setCaption("Stock");
+        gridd.addColumn(Producto::getPrecio).setCaption("Precio por Unidad");
+        gridd.setEnabled(true);
+        
         gridLayout.addComponent(new Label("PRACTICA 3 - INVENTARIO"),0,1);
         gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan Martin y Angel Rey"),0,2);
         gridLayout.addComponent(new Label(""),0,3);
@@ -77,6 +93,8 @@ public class MyUI extends UI {
             	notif.show(Page.getCurrent());
             crear.setValue("");
             precio.setValue("");
+            gridd.getDataProvider().refreshAll();
+            
         });
         gridLayout.addComponent(crearButton,2,4);
         
@@ -102,6 +120,7 @@ public class MyUI extends UI {
                	
                 	// Show it in the page
                 	notif.show(Page.getCurrent());
+                	gridd.getDataProvider().refreshAll();
         		borrar.setValue("");
         	}else {
         		//layout.addComponent(new Label("Producto no borrado"));
@@ -143,15 +162,15 @@ public class MyUI extends UI {
         });
         gridLayout.addComponent(numeroProductos,3,8);
         
-        Button aa = new Button("aa");
-        Grid<Producto> gridd = new Grid<>("Listado de productos");
-    	gridd.setItems(inv.getProductos());
-        gridd.addColumn(Producto::getNombre).setCaption("Nombre Producto");
-        gridd.addColumn(Producto::getStock).setCaption("Stock");
-        gridd.addColumn(Producto::getPrecio).setCaption("Precio por Unidad");
-    
-        gridd.setEnabled(true);
+        
         //////////////////////////
+        
+        Grid<Transaccion> tablaTransaccion = new Grid<>("Listado de transacciones");
+        tablaTransaccion.setItems(inv.getTransaciones());
+        tablaTransaccion.addColumn(Transaccion::getComentario).setCaption("Comentario Transaccion");
+        tablaTransaccion.addColumn(Transaccion::getFechaTransaccion).setCaption("Fecha");
+        tablaTransaccion.setEnabled(true);
+        gridLayout.addComponent(tablaTransaccion,3,20);
  
         
         //////////////////////////
@@ -159,6 +178,7 @@ public class MyUI extends UI {
         listaProductos.addClickListener(e -> {
         	        	
             gridd.getDataProvider().refreshAll();
+            tablaTransaccion.getDataProvider().refreshAll();
         	        	
         });
 
@@ -219,6 +239,10 @@ public class MyUI extends UI {
             	if(p.getNombre().equals(nombrePro.getValue())) {
             		p.addStock(Integer.parseInt(unidades.getValue()));
             		inv.delBeneficio(p.getPrecio()*Double.parseDouble(unidades.getValue()));
+            		Transaccion td=new Transaccion("Se compro el producto "+nombrePro.getValue(),ca.getTime());
+                    inv.addTransaccion(td);
+                    tablaTransaccion.getDataProvider().refreshAll();
+                    gridd.getDataProvider().refreshAll();
             	}
             }
         	
@@ -261,7 +285,10 @@ public class MyUI extends UI {
         ingresar.addClickListener(e -> {
         	
         	inv.addBeneficio(Double.parseDouble(ingresos.getValue()));
-        	
+        	Transaccion td=new Transaccion("Ingreso por valor de "+ingresos.getValue(),ca.getTime());
+            inv.addTransaccion(td);
+            tablaTransaccion.getDataProvider().refreshAll();
+            gridd.getDataProvider().refreshAll();
             Notification notif = new Notification(
             	    "ingresado",
             	    ingresos.getValue(),
@@ -283,7 +310,9 @@ public class MyUI extends UI {
         gastar.addClickListener(e -> {
         	
         	inv.delBeneficio(Double.parseDouble(gastos.getValue()));
-        	
+        	Transaccion td=new Transaccion("Gasto por valor de "+gastos.getValue(),ca.getTime());
+            inv.addTransaccion(td);
+            tablaTransaccion.getDataProvider().refreshAll();
             Notification notif = new Notification(
             	    "Gastos ",
             	    gastos.getValue(),
@@ -307,6 +336,10 @@ public class MyUI extends UI {
             	if(p.getNombre().equals(nombreProd.getValue())) {
             		p.removeStock(Integer.parseInt(unidadess.getValue()));
             		inv.addBeneficio(p.getPrecio()*Double.parseDouble(unidadess.getValue()));
+            		Transaccion td=new Transaccion("Se vendio el producto "+nombreProd.getValue(),ca.getTime());
+                    inv.addTransaccion(td);
+                    tablaTransaccion.getDataProvider().refreshAll();
+                    gridd.getDataProvider().refreshAll();
             	}
             }
         	
