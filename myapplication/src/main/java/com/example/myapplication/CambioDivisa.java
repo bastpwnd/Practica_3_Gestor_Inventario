@@ -13,11 +13,24 @@ public class CambioDivisa {
 	}
 	
 	
-	public ArrayList<Producto> cambioPrecio(ArrayList<Producto> a){
+	public ArrayList<Producto> cambioPrecioDolares(ArrayList<Producto> a){
 		
 		ArrayList<Producto> cambioPrecio=new ArrayList<Producto>();
 		for(Producto p: a) {
 			p.setPrecio((p.getPrecio()*this.divisaConstante));
+			cambioPrecio.add(p);
+			}
+		
+		
+		
+		return cambioPrecio;
+		
+	}
+	public ArrayList<Producto> cambioPrecioEuros(ArrayList<Producto> a){
+		
+		ArrayList<Producto> cambioPrecio=new ArrayList<Producto>();
+		for(Producto p: a) {
+			p.setPrecio((p.getPrecio()/this.divisaConstante));
 			cambioPrecio.add(p);
 			}
 		

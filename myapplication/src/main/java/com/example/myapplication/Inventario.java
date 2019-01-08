@@ -6,13 +6,29 @@ public class Inventario {
 	
 	private ArrayList<Producto>productos;
 	private int stockTotal;
+	private double beneficio;
 	
 	
 	public Inventario() {
 		this.productos=new ArrayList<Producto>();
+		this.beneficio=500.0;
 		
 	}
+	public void addBeneficio(double a) {
+		this.beneficio=this.beneficio+a;;
+	}
+	public void delBeneficio(double a) {
+		this.beneficio=this.beneficio-a;
+	}
 	
+	public double getBeneficio() {
+		return beneficio;
+	}
+
+	public void setBeneficio(double beneficio) {
+		this.beneficio = beneficio;
+	}
+
 	public void addProducto(Producto a ) {
 		this.productos.add(a);
 	}

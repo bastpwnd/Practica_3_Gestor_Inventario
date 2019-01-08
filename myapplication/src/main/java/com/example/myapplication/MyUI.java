@@ -34,6 +34,8 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Theme("mytheme")
 public class MyUI extends UI {	
+	
+	private boolean divisaActual=true;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -153,7 +155,7 @@ public class MyUI extends UI {
             	notif.show(Page.getCurrent());
         	
         });
-        gridLayout.addComponent(numeroProductos,2,8);
+        gridLayout.addComponent(numeroProductos,3,8);
         
         Button aa = new Button("aa");
         Grid<Producto> gridd = new Grid<>("Listado de productos");
@@ -177,36 +179,69 @@ public class MyUI extends UI {
             gridd.getDataProvider().refreshAll();
         	        	
         });
+
         Button cambioDivisa = new Button("Cambiar Divisa");
         cambioDivisa.addClickListener(e -> {
+    		CambioDivisa divisa=new CambioDivisa();
+
+        	if(divisaActual) {
+            	inv.setProductos(divisa.cambioPrecioDolares(inv.getProductos()));
+            	divisaActual=false;
+            	Notification notif = new Notification(
+            			"Precio cambiado a Dolares",
+                	    Notification.TYPE_ERROR_MESSAGE);
+
+                	// Customize it
+                	notif.setDelayMsec(500);
+                	notif.setPosition(Position.BOTTOM_RIGHT);
+                	notif.setStyleName("mystyle");
+                	
+
+                	// Show it in the page
+                	notif.show(Page.getCurrent());
+        	}else {
+        		inv.setProductos(divisa.cambioPrecioEuros(inv.getProductos()));
+            	divisaActual=true;
+            	Notification notif = new Notification(
+            			"Precio cambiado a Euros",
+                	    Notification.TYPE_ERROR_MESSAGE);
+
+                	// Customize it
+                	notif.setDelayMsec(500);
+                	notif.setPosition(Position.BOTTOM_RIGHT);
+                	notif.setStyleName("mystyle");
+                	
+
+                	// Show it in the page
+                	notif.show(Page.getCurrent());
+        	}
         	
-        	CambioDivisa divisa=new CambioDivisa();
-        	inv.setProductos(divisa.cambioPrecio(inv.getProductos()));
         	        	
             gridd.getDataProvider().refreshAll();
         	        	
         });
         gridLayout.addComponent(cambioDivisa,3,9);
 
-        gridLayout.addComponent(listaProductos,3,10);
+        gridLayout.addComponent(listaProductos,3,6);
         
         gridLayout.addComponent(gridd,3,12);
 
         final TextField nombrePro = new TextField();
         nombrePro.setValue("nombre");
         //crear.setCaption("Nombre del producto");
-        gridLayout.addComponent(nombrePro,0,12);
+        gridLayout.addComponent(nombrePro,0,9);
         
         final TextField unidades = new TextField();
         unidades.setValue("unidades");
         //precio.setCaption("Precio del producto");
-        gridLayout.addComponent(unidades,1,12);
+        gridLayout.addComponent(unidades,1,9);
 
         Button add = new Button("Añadir Stocks");
         add.addClickListener(e -> {
             for(Producto p:inv.getProductos()) {
             	if(p.getNombre().equals(nombrePro.getValue())) {
             		p.addStock(Integer.parseInt(unidades.getValue()));
+            		inv.delBeneficio(p.getPrecio()*Double.parseDouble(unidades.getValue()));
             	}
             }
         	
@@ -226,33 +261,92 @@ public class MyUI extends UI {
             nombrePro.setValue("");
             unidades.setValue("");
         });
-        gridLayout.addComponent(add,2,12);
+        gridLayout.addComponent(add,2,9);
                
         
         final TextField nombreProd = new TextField();
         nombreProd.setValue("nombre");
         //crear.setCaption("Nombre del producto");
-        gridLayout.addComponent(nombreProd,0,10);
+        gridLayout.addComponent(nombreProd,0,8);
         
         final TextField unidadess = new TextField();
         unidadess.setValue("unidades");
         //precio.setCaption("Precio del producto");
-        gridLayout.addComponent(unidadess,1,10);
+        gridLayout.addComponent(unidadess,1,8);
+        
+        final TextField ingresos = new TextField();
+        ingresos.setValue("cantidad");
+        //precio.setCaption("Precio del producto");
+        gridLayout.addComponent(ingresos,0,10);
+        
+        final TextField gastos = new TextField();
+        gastos.setValue("cantidad");
+        //precio.setCaption("Precio del producto");
+        gridLayout.addComponent(gastos,1,10);
+        
+        Button ingresar = new Button("Ingresar");
+        ingresar.addClickListener(e -> {
+        	
+        	inv.addBeneficio(Double.parseDouble(ingresos.getValue()));
+        	
+            Notification notif = new Notification(
+            	    "ingresado",
+            	    ingresos.getValue(),
+            	    Notification.TYPE_WARNING_MESSAGE);
+
+            	// Customize it
+            	notif.setDelayMsec(600);
+            	notif.setPosition(Position.BOTTOM_RIGHT);
+            	notif.setStyleName("mystyle");
+            
+            	// Show it in the page
+            	notif.show(Page.getCurrent());
+                ingresos.setValue("");
+
+            
+        });
+        gridLayout.addComponent(ingresar,0,11);
+        Button gastar = new Button("Gastos");
+        gastar.addClickListener(e -> {
+        	
+        	inv.delBeneficio(Double.parseDouble(gastos.getValue()));
+        	
+            Notification notif = new Notification(
+            	    "Gastos ",
+            	    gastos.getValue(),
+            	    Notification.TYPE_WARNING_MESSAGE);
+
+            	// Customize it
+            	notif.setDelayMsec(600);
+            	notif.setPosition(Position.BOTTOM_RIGHT);
+            	notif.setStyleName("mystyle");
+            
+            	// Show it in the page
+            	notif.show(Page.getCurrent());
+                gastos.setValue("");
+
+            
+        });
+        gridLayout.addComponent(gastar,1,11);
+
+        
 
         Button del = new Button("Eliminar Stocks");
         del.addClickListener(e -> {
             for(Producto p:inv.getProductos()) {
             	if(p.getNombre().equals(nombreProd.getValue())) {
             		p.removeStock(Integer.parseInt(unidadess.getValue()));
+            		inv.addBeneficio(p.getPrecio()*Double.parseDouble(unidadess.getValue()));
             	}
             }
+            
         	
             Notification notif = new Notification(
             	    "Stock Eliminado",
             	    Notification.TYPE_WARNING_MESSAGE);
 
             	// Customize it
-            	notif.setDelayMsec(20000);
+            	notif.setDelayMsec(900);
             	notif.setPosition(Position.BOTTOM_RIGHT);
             	notif.setStyleName("mystyle");
             	
@@ -263,24 +357,30 @@ public class MyUI extends UI {
             nombreProd.setValue("");
             unidadess.setValue("");
         });
-        gridLayout.addComponent(del,2,10);
+        gridLayout.addComponent(del,2,8);
                
-        // Create a grid bound to the list            
-        
-        //////////////////////////////////////
-        
-        /*
-        layout.addComponents(crear,precio, crearButton);
+        Button ver = new Button("Beneficios");
+        ver.addClickListener(e -> {
+        	
+            Notification notif = new Notification(
+            	    "Beneficio",
+            	    String.valueOf(inv.getBeneficio()),
+            	    Notification.TYPE_WARNING_MESSAGE);
 
-        layout.addComponents(borrar, buttonBorrar);
-        layout.addComponent(new Label(" "));
-        //layout.setComponentAlignment(borrar, Alignment.MIDDLE_CENTER);
-        layout.addComponents(numeroProductos);
-        //layout.addComponents(listaProductos);
-        layout.addComponent(new Label(" "));
-        //layout.addComponent(gridd);
-        //layout.addComponent(gridd);
-        */        
+            	// Customize it
+            	notif.setDelayMsec(600);
+            	notif.setPosition(Position.BOTTOM_RIGHT);
+            	notif.setStyleName("mystyle");
+            
+            	// Show it in the page
+            	notif.show(Page.getCurrent());
+                //nombreProd.setValue("");
+
+            
+        });
+        gridLayout.addComponent(ver,3,4);
+
+          
        setContent(gridLayout);
     }
 
