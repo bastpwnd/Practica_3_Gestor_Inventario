@@ -1,29 +1,29 @@
 package com.example.myapplication;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 import javax.servlet.annotation.WebServlet;
 
+//import com.example.Grid;
+//import com.example.GridLayout;
+//import com.example.HorizontalLayout;
+import com.example.myapplication.Inventario;
+import com.example.myapplication.MyUI;
+import com.example.myapplication.Producto;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.shared.Position;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -33,9 +33,7 @@ import com.vaadin.ui.VerticalLayout;
  * overridden to add sdcomponent to the user interface and initialize non-component functionality.
  */
 @Theme("mytheme")
-public class MyUI extends UI {
-	
-	
+public class MyUI extends UI {	
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -48,13 +46,13 @@ public class MyUI extends UI {
         inv.addProducto(b);
         inv.addProducto(c);
         final VerticalLayout layout = new VerticalLayout();
-        final HorizontalLayout layoutHorizontal = new HorizontalLayout();
-        GridLayout gridLayout = new GridLayout(5, 15);
+        //final HorizontalLayout layoutHorizontal = new HorizontalLayout();
+        final GridLayout gridLayout = new GridLayout(5, 15);
         gridLayout.setSpacing(true);
    
         //layout.addComponent(new Label("PRACTICA 3 - INVENTARIO"));
         gridLayout.addComponent(new Label("PRACTICA 3 - INVENTARIO"),0,1);
-        gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan y Angel"),0,2);
+        gridLayout.addComponent(new Label("Bienvenidos al inventario de Ivan Martin y Angel rey"),0,2);
         gridLayout.addComponent(new Label(""),0,3);
         //layout.addComponent(new Label("Bienvenidos al inventario de Ivan y Angel"));
         //layout.addComponent(new Label(" "));
@@ -73,7 +71,7 @@ public class MyUI extends UI {
         
         Button crearButton = new Button("Crear Producto");
         crearButton.addClickListener(e -> {
-            inv.addProducto(new Producto(crear.getValue(),Integer.parseInt(precio.getValue())));
+            inv.addProducto(new Producto(crear.getValue(),Double.parseDouble(precio.getValue())));
             Notification notif = new Notification(
             	    "Producto creado",
             	    Notification.TYPE_WARNING_MESSAGE);
@@ -171,20 +169,29 @@ public class MyUI extends UI {
       
         
         
+       
         //////////////////////////
         Button listaProductos = new Button("Actualizar productos");
         listaProductos.addClickListener(e -> {
-        	
-        	
+        	        	
             gridd.getDataProvider().refreshAll();
-        	
-        	
+        	        	
         });
-        gridLayout.addComponent(listaProductos,2,10);
+        Button cambioDivisa = new Button("Cambiar Divisa");
+        cambioDivisa.addClickListener(e -> {
+        	
+        	CambioDivisa divisa=new CambioDivisa();
+        	inv.setProductos(divisa.cambioPrecio(inv.getProductos()));
+        	        	
+            gridd.getDataProvider().refreshAll();
+        	        	
+        });
+        gridLayout.addComponent(cambioDivisa,3,9);
+
+        gridLayout.addComponent(listaProductos,3,10);
         
         gridLayout.addComponent(gridd,3,12);
 
-        
         final TextField nombrePro = new TextField();
         nombrePro.setValue("nombre");
         //crear.setCaption("Nombre del producto");
@@ -211,8 +218,7 @@ public class MyUI extends UI {
             	notif.setDelayMsec(20000);
             	notif.setPosition(Position.BOTTOM_RIGHT);
             	notif.setStyleName("mystyle");
-            	
-
+            
             	// Show it in the page
             	notif.show(Page.getCurrent());
             //layout.addComponent(new Label("Producto creado " + crear.getValue()));
@@ -221,11 +227,45 @@ public class MyUI extends UI {
             unidades.setValue("");
         });
         gridLayout.addComponent(add,2,12);
+               
         
+        final TextField nombreProd = new TextField();
+        nombreProd.setValue("nombre");
+        //crear.setCaption("Nombre del producto");
+        gridLayout.addComponent(nombreProd,0,10);
+        
+        final TextField unidadess = new TextField();
+        unidadess.setValue("unidades");
+        //precio.setCaption("Precio del producto");
+        gridLayout.addComponent(unidadess,1,10);
 
-        // Create a grid bound to the list
-        
-       
+        Button del = new Button("Eliminar Stocks");
+        del.addClickListener(e -> {
+            for(Producto p:inv.getProductos()) {
+            	if(p.getNombre().equals(nombreProd.getValue())) {
+            		p.removeStock(Integer.parseInt(unidadess.getValue()));
+            	}
+            }
+        	
+            Notification notif = new Notification(
+            	    "Stock Eliminado",
+            	    Notification.TYPE_WARNING_MESSAGE);
+
+            	// Customize it
+            	notif.setDelayMsec(20000);
+            	notif.setPosition(Position.BOTTOM_RIGHT);
+            	notif.setStyleName("mystyle");
+            	
+            	// Show it in the page
+            	notif.show(Page.getCurrent());
+            //layout.addComponent(new Label("Producto creado " + crear.getValue()));
+            //System.out.println(crear.getValue());
+            nombreProd.setValue("");
+            unidadess.setValue("");
+        });
+        gridLayout.addComponent(del,2,10);
+               
+        // Create a grid bound to the list            
         
         //////////////////////////////////////
         
@@ -240,8 +280,7 @@ public class MyUI extends UI {
         layout.addComponent(new Label(" "));
         //layout.addComponent(gridd);
         //layout.addComponent(gridd);
-        */
-        
+        */        
        setContent(gridLayout);
     }
 

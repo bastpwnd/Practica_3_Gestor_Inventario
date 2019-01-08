@@ -30,6 +30,10 @@ public class Inventario {
 		return false;
 	}
 	
+	public void setProductos(ArrayList<Producto> productos) {
+		this.productos = productos;
+	}
+
 	public void totalStock() {
 		for(Producto p: productos) {
 			this.stockTotal=this.stockTotal+p.getStock();

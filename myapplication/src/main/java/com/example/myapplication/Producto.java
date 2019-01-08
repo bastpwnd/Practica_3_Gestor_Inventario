@@ -14,7 +14,7 @@ public class Producto implements Cloneable{
 	}
 	
 	public double getPrecio() {
-		return precio;
+		return Math.round(precio);
 	}
 
 	public void setPrecio(double precio) {
