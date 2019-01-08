@@ -239,7 +239,8 @@ public class MyUI extends UI {
             	if(p.getNombre().equals(nombrePro.getValue())) {
             		p.addStock(Integer.parseInt(unidades.getValue()));
             		inv.delBeneficio(p.getPrecio()*Double.parseDouble(unidades.getValue()));
-            		Transaccion td=new Transaccion("Se compro el producto "+nombrePro.getValue(),ca.getTime());
+            		Calendar caa = Calendar.getInstance();
+            		Transaccion td=new Transaccion("Se compro el producto "+nombrePro.getValue(),caa.getTime());
                     inv.addTransaccion(td);
                     tablaTransaccion.getDataProvider().refreshAll();
                     gridd.getDataProvider().refreshAll();
@@ -285,7 +286,8 @@ public class MyUI extends UI {
         ingresar.addClickListener(e -> {
         	
         	inv.addBeneficio(Double.parseDouble(ingresos.getValue()));
-        	Transaccion td=new Transaccion("Ingreso por valor de "+ingresos.getValue(),ca.getTime());
+        	Calendar caa = Calendar.getInstance();
+        	Transaccion td=new Transaccion("Ingreso por valor de "+ingresos.getValue(),caa.getTime());
             inv.addTransaccion(td);
             tablaTransaccion.getDataProvider().refreshAll();
             gridd.getDataProvider().refreshAll();
@@ -310,7 +312,8 @@ public class MyUI extends UI {
         gastar.addClickListener(e -> {
         	
         	inv.delBeneficio(Double.parseDouble(gastos.getValue()));
-        	Transaccion td=new Transaccion("Gasto por valor de "+gastos.getValue(),ca.getTime());
+        	Calendar caa = Calendar.getInstance();
+        	Transaccion td=new Transaccion("Gasto por valor de "+gastos.getValue(),caa.getTime());
             inv.addTransaccion(td);
             tablaTransaccion.getDataProvider().refreshAll();
             Notification notif = new Notification(
@@ -336,7 +339,8 @@ public class MyUI extends UI {
             	if(p.getNombre().equals(nombreProd.getValue())) {
             		p.removeStock(Integer.parseInt(unidadess.getValue()));
             		inv.addBeneficio(p.getPrecio()*Double.parseDouble(unidadess.getValue()));
-            		Transaccion td=new Transaccion("Se vendio el producto "+nombreProd.getValue(),ca.getTime());
+            		Calendar caa = Calendar.getInstance();
+            		Transaccion td=new Transaccion("Se vendio el producto "+nombreProd.getValue(),caa.getTime());
                     inv.addTransaccion(td);
                     tablaTransaccion.getDataProvider().refreshAll();
                     gridd.getDataProvider().refreshAll();
